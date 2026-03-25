@@ -1,0 +1,101 @@
+@use 'variables' as *;
+
+// Flex helpers
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+// Glass card effect
+@mixin glass-card {
+  background: rgba(22, 22, 22, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid $border-color;
+  border-radius: $radius-lg;
+  box-shadow: $shadow-card;
+}
+
+// Red glow card
+@mixin glow-card {
+  background: $bg-card;
+  border: 1px solid $border-color;
+  border-radius: $radius-lg;
+  box-shadow: $shadow-card;
+  transition: $transition-smooth;
+
+  &:hover {
+    border-color: $accent-red;
+    box-shadow: $shadow-glow, $shadow-card;
+    transform: translateY(-6px);
+  }
+}
+
+// Section title style
+@mixin section-title {
+  font-family: $font-display;
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 900;
+  color: $text-primary;
+  line-height: 1.1;
+}
+
+// Gold accent line under headings
+@mixin gold-underline {
+  position: relative;
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    width: 60px;
+    height: 3px;
+    background: linear-gradient(90deg, $accent-gold, $accent-red);
+    border-radius: $radius-pill;
+  }
+}
+
+// Button base
+@mixin btn-base {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 28px;
+  border-radius: $radius-pill;
+  font-family: $font-body;
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  border: none;
+  transition: $transition-bounce;
+  text-decoration: none;
+}
+
+// Responsive breakpoints
+@mixin mobile  { @media (max-width: 576px)  { @content; } }
+@mixin tablet  { @media (max-width: 768px)  { @content; } }
+@mixin desktop { @media (min-width: 1024px) { @content; } }
+
+// Text gradient
+@mixin text-gradient($from, $to) {
+  background: linear-gradient(135deg, $from, $to);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+// Overlay
+@mixin dark-overlay($opacity: 0.6) {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,$opacity);
+  border-radius: inherit;
+}

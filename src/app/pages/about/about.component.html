@@ -1,0 +1,205 @@
+<!-- ══ HERO ════════════════════════════════════════════ -->
+<section class="about-hero">
+  <div class="about-hero__bg">
+    <img
+      src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=1400&q=80"
+      alt="Restaurant" class="about-hero__img"/>
+    <div class="about-hero__overlay"></div>
+  </div>
+
+  <div class="container about-hero__content">
+    <p class="section-label">Our Story</p>
+    <h1 class="about-hero__title">
+      Born from Fire.<br>
+      <span class="text-gold">Built with Love.</span>
+    </h1>
+    <p class="about-hero__sub">
+      The Stone Oves started as a dream in a small kitchen in Faisalabad.
+      Today, we're the city's most loved stone-fired restaurant.
+    </p>
+  </div>
+
+  <!-- Stats Bar -->
+  <div class="stats-bar">
+    <div class="container stats-bar__inner">
+      <div class="stat-item" *ngFor="let stat of stats">
+        <span class="stat-item__value">{{ stat.value }}</span>
+        <span class="stat-item__label">{{ stat.label }}</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ STORY ════════════════════════════════════════════ -->
+<section class="section story-section">
+  <div class="container story-grid">
+
+    <div class="story-images">
+      <div class="story-img story-img--main">
+        <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?w=600&q=80"
+          alt="Our Kitchen"/>
+        <div class="story-img__frame"></div>
+      </div>
+      <div class="story-img story-img--secondary">
+        <img src="https://images.unsplash.com/photo-1571407970349-bc81e7e96d47?w=400&q=80"
+          alt="Our Pizzas"/>
+      </div>
+      <div class="story-badge">
+        <span class="story-badge__year">2021</span>
+        <span class="story-badge__text">Est.</span>
+      </div>
+    </div>
+
+    <div class="story-text">
+      <p class="section-label">How It Started</p>
+      <h2 class="story-title">
+        A Passion Project<br>
+        <span class="text-gold">Turned Legacy</span>
+      </h2>
+      <div class="divider"></div>
+
+      <p class="story-body">
+        It started with one stone oven, two recipes, and an unshakeable
+        belief that Faisalabad deserved world-class pizza. Our founder
+        Chef Usman spent years perfecting the dough recipe — a 48-hour
+        cold ferment that gives our crust its unmistakable flavor.
+      </p>
+      <p class="story-body">
+        Three years later, The Stone Oves has served over 2,000 customers
+        and launched 50+ menu items — all made fresh daily, all stone-fired
+        to order. No frozen dough. No reheated sauces. Just pure craft.
+      </p>
+
+      <div class="story-quote">
+        <span class="quote-mark">"</span>
+        <p>We don't just make food. We make memories.</p>
+        <span class="quote-author">— Chef Usman, Founder</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══ VALUES ═══════════════════════════════════════════ -->
+<section class="section values-section">
+  <div class="container">
+
+    <div class="values-header">
+      <p class="section-label">What We Stand For</p>
+      <h2 class="values-title">
+        Our <span class="text-gold">Core Values</span>
+      </h2>
+      <div class="divider" style="margin: 16px auto 0"></div>
+    </div>
+
+    <div class="values-grid">
+      <div class="value-card" *ngFor="let v of values; let i = index"
+        [style.animation-delay]="i * 0.1 + 's'">
+        <div class="value-card__icon">{{ v.icon }}</div>
+        <h3 class="value-card__title">{{ v.title }}</h3>
+        <p class="value-card__desc">{{ v.desc }}</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══ TEAM ══════════════════════════════════════════════ -->
+<section class="section team-section">
+  <div class="container">
+
+    <div class="team-header">
+      <p class="section-label">The People</p>
+      <h2 class="team-title">
+        Meet the <span class="text-gold">Team</span>
+      </h2>
+      <div class="divider" style="margin: 16px auto 0"></div>
+    </div>
+
+    <div class="team-grid">
+      <div class="team-card" *ngFor="let member of team">
+
+        <div class="team-card__image">
+          <img [src]="member.image" [alt]="member.name"/>
+          <div class="team-card__overlay"></div>
+          <div class="team-card__quote">
+            <span>"{{ member.quote }}"</span>
+          </div>
+        </div>
+
+        <div class="team-card__info">
+          <h3 class="team-card__name">{{ member.name }}</h3>
+          <span class="team-card__role">{{ member.role }}</span>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══ LOCATION ══════════════════════════════════════════ -->
+<section class="section location-section">
+  <div class="container">
+    <div class="location-card">
+      <div class="location-card__glow"></div>
+
+      <div class="location-info">
+        <p class="section-label">Find Us</p>
+        <h2 class="location-title">
+          Visit Our <span class="text-gold">Restaurant</span>
+        </h2>
+        <div class="divider"></div>
+
+        <div class="location-details">
+          <div class="location-detail">
+            <span class="detail-icon">📍</span>
+            <div>
+              <strong>Address</strong>
+              <p>Main Boulevard, Faisalabad, Punjab, Pakistan</p>
+            </div>
+          </div>
+          <div class="location-detail">
+            <span class="detail-icon">🕐</span>
+            <div>
+              <strong>Hours</strong>
+              <p>Mon–Sun: 12:00 PM – 1:00 AM</p>
+            </div>
+          </div>
+          <div class="location-detail">
+            <span class="detail-icon">📞</span>
+            <div>
+              <strong>Contact</strong>
+              <p>+92 300 123 4567</p>
+            </div>
+          </div>
+          <div class="location-detail">
+            <span class="detail-icon">🛵</span>
+            <div>
+              <strong>Delivery</strong>
+              <p>Free above Rs. 1500 · 30 min avg</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="location-actions">
+          <a routerLink="/menu" class="btn-primary">Order Now</a>
+          <a href="https://wa.me/923001234567"
+            target="_blank" class="btn-outline">
+            WhatsApp Us
+          </a>
+        </div>
+      </div>
+
+      <div class="location-visual">
+        <div class="map-placeholder">
+          <span class="map-pin">📍</span>
+          <span class="map-label">The Stone Oves</span>
+          <span class="map-sub">Faisalabad</span>
+          <div class="map-pulse"></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>

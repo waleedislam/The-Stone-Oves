@@ -1,0 +1,246 @@
+@use '../../../styles/variables' as *;
+@use '../../../styles/mixins' as *;
+
+.navbar {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
+  padding: 20px 0;
+  transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: transparent;
+    backdrop-filter: blur(0px);
+    transition: all 0.4s ease;
+    z-index: -1;
+  }
+
+  &.scrolled {
+    padding: 12px 0;
+
+    &::before {
+      background: rgba(10, 10, 10, 0.92);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid $border-color;
+      box-shadow: 0 4px 30px rgba(0,0,0,0.5);
+    }
+  }
+
+  &__inner {
+    @include flex-between;
+    gap: 24px;
+  }
+
+  // ── Logo ──────────────────────────────────────────────
+  &__logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+    flex-shrink: 0;
+  }
+
+  .logo-icon {
+    width: 44px; height: 44px;
+    border-radius: $radius-md;
+    background: linear-gradient(135deg, $accent-red, $accent-gold);
+    @include flex-center;
+    box-shadow: 0 4px 16px rgba(192,57,43,0.4);
+    transition: $transition-bounce;
+
+    &:hover { transform: rotate(-5deg) scale(1.1); }
+  }
+
+  .logo-flame { font-size: 1.4rem; }
+
+  .logo-text {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+  }
+
+  .logo-main {
+    font-family: $font-display;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: $text-primary;
+    line-height: 1;
+  }
+
+  .logo-sub {
+    font-family: $font-body;
+    font-size: 0.62rem;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: $accent-gold;
+  }
+
+  // ── Nav Links ─────────────────────────────────────────
+  &__links {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    list-style: none;
+
+    @include tablet { display: none; }
+  }
+
+  .nav-link {
+    font-family: $font-body;
+    font-size: 0.88rem;
+    font-weight: 500;
+    color: $text-secondary;
+    padding: 8px 16px;
+    border-radius: $radius-pill;
+    transition: $transition-fast;
+    position: relative;
+
+    &:hover {
+      color: $text-primary;
+      background: rgba(255,255,255,0.05);
+    }
+
+    &.active {
+      color: $accent-gold;
+      background: rgba(245,166,35,0.08);
+    }
+  }
+
+  // ── Actions ───────────────────────────────────────────
+  &__actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  &__order-btn {
+    @include tablet { display: none; }
+    font-size: 0.82rem;
+    padding: 10px 22px;
+  }
+
+  // ── Cart Button ───────────────────────────────────────
+  .cart-btn {
+    position: relative;
+    width: 44px; height: 44px;
+    border-radius: $radius-md;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid $border-color;
+    color: $text-primary;
+    cursor: pointer;
+    @include flex-center;
+    transition: $transition-smooth;
+
+    &:hover {
+      background: rgba(192,57,43,0.15);
+      border-color: $accent-red;
+      color: $accent-red;
+    }
+  }
+
+  .cart-badge {
+    position: absolute;
+    top: -6px; right: -6px;
+    width: 20px; height: 20px;
+    background: linear-gradient(135deg, $accent-red, $accent-red-hot);
+    color: $white;
+    font-size: 0.65rem;
+    font-weight: 700;
+    border-radius: 50%;
+    @include flex-center;
+    animation: cart-bounce 0.4s ease;
+    box-shadow: 0 2px 8px rgba(192,57,43,0.5);
+  }
+
+  // ── Hamburger ─────────────────────────────────────────
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    width: 40px; height: 40px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    @include flex-center;
+    flex-direction: column;
+
+    @include tablet { display: flex; }
+
+    span {
+      display: block;
+      width: 22px; height: 2px;
+      background: $text-primary;
+      border-radius: 2px;
+      transition: $transition-smooth;
+      transform-origin: center;
+    }
+
+    &.open {
+      span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+      span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+      span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+    }
+  }
+}
+
+// ── Mobile Menu ─────────────────────────────────────────
+.mobile-menu {
+  position: fixed;
+  top: 0; right: -100%;
+  width: min(320px, 85vw);
+  height: 100vh;
+  background: $bg-secondary;
+  border-left: 1px solid $border-color;
+  z-index: 999;
+  padding: 100px 32px 40px;
+  transition: right 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+  box-shadow: -20px 0 60px rgba(0,0,0,0.5);
+
+  &.open { right: 0; }
+
+  ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  a {
+    display: block;
+    font-family: $font-body;
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: $text-secondary;
+    padding: 14px 16px;
+    border-radius: $radius-md;
+    transition: $transition-fast;
+
+    &:hover, &.active {
+      color: $text-primary;
+      background: rgba(255,255,255,0.05);
+    }
+
+    &.active { color: $accent-gold; }
+  }
+
+  .mobile-order-btn {
+    margin-top: 16px;
+    text-align: center;
+    display: block;
+    padding: 14px;
+  }
+}
+
+// ── Backdrop ────────────────────────────────────────────
+.menu-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  backdrop-filter: blur(4px);
+  z-index: 998;
+  animation: fadeIn 0.3s ease;
+}

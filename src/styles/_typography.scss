@@ -1,0 +1,49 @@
+@use 'variables' as *;
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: $font-display;
+  color: $text-primary;
+  line-height: 1.2;
+  margin: 0;
+}
+
+p {
+  font-family: $font-body;
+  color: $text-secondary;
+  line-height: 1.7;
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.text-gold {
+  color: $accent-gold;
+}
+
+.text-red {
+  color: $accent-red-hot;
+}
+
+.text-muted {
+  color: $text-muted;
+}
+
+.display-title {
+  font-family: $font-display;
+  font-weight: 900;
+  font-size: clamp(2.5rem, 6vw, 5rem);
+  line-height: 1.05;
+  color: $text-primary;
+}
+
+.section-label {
+  font-family: $font-body;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: $accent-gold;
+}

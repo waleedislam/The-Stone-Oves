@@ -1,0 +1,89 @@
+/* You can add global styles to this file, and also import other style files */
+@use 'styles/variables' as *;
+@use 'styles/mixins' as *;
+@use 'styles/animations';
+@use 'styles/typography';
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  background-color: $bg-primary;
+  color: $text-primary;
+  font-family: $font-body;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+// Scrollbar styling
+::-webkit-scrollbar       { width: 6px; }
+::-webkit-scrollbar-track { background: $bg-secondary; }
+::-webkit-scrollbar-thumb { background: $accent-red; border-radius: $radius-pill; }
+
+// Section wrapper
+.section {
+  padding: 80px 0;
+  @include tablet { padding: 60px 0; }
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+// Buttons
+.btn-primary {
+  @include btn-base;
+  background: linear-gradient(135deg, $accent-red, $accent-red-hot);
+  color: $white;
+  box-shadow: 0 4px 20px rgba(192,57,43,0.4);
+
+  &:hover {
+    transform: translateY(-3px) scale(1.03);
+    box-shadow: 0 8px 30px rgba(192,57,43,0.6);
+  }
+  &:active { transform: scale(0.97); }
+}
+
+.btn-outline {
+  @include btn-base;
+  background: transparent;
+  color: $text-primary;
+  border: 1.5px solid $border-color;
+
+  &:hover {
+    border-color: $accent-gold;
+    color: $accent-gold;
+    box-shadow: $shadow-gold;
+  }
+}
+
+.btn-gold {
+  @include btn-base;
+  background: linear-gradient(135deg, $accent-gold, $accent-gold-lt);
+  color: #1a0a00;
+  font-weight: 700;
+
+  &:hover {
+    transform: translateY(-3px) scale(1.03);
+    box-shadow: 0 8px 30px rgba(245,166,35,0.5);
+  }
+}
+
+// Divider
+.divider {
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(90deg, $accent-gold, $accent-red);
+  border-radius: $radius-pill;
+  margin: 16px 0 32px;
+}

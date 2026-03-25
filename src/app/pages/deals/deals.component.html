@@ -1,0 +1,195 @@
+<!-- ══ HERO BANNER ══════════════════════════════════════ -->
+<section class="deals-hero">
+  <div class="deals-hero__bg">
+    <div class="orb orb--1"></div>
+    <div class="orb orb--2"></div>
+    <div class="orb orb--3"></div>
+    <div class="grid-lines"></div>
+  </div>
+
+  <div class="container deals-hero__content">
+    <div class="deals-hero__badge">
+      <span class="badge-fire">🔥</span>
+      Limited Time Offers
+    </div>
+
+    <h1 class="deals-hero__title">
+      Insane Deals.<br>
+      <span class="title-stroke">Real Savings.</span>
+    </h1>
+
+    <p class="deals-hero__sub">
+      Handcrafted combos designed to feed more, spend less.
+      Every deal is stone-fired fresh.
+    </p>
+
+    <!-- Countdown Timer -->
+    <div class="countdown">
+      <span class="countdown__label">Deals refresh in</span>
+      <div class="countdown__timer">
+        <div class="countdown__unit">
+          <span class="countdown__num">{{ countdown.hours }}</span>
+          <span class="countdown__text">hrs</span>
+        </div>
+        <span class="countdown__sep">:</span>
+        <div class="countdown__unit">
+          <span class="countdown__num">{{ countdown.minutes }}</span>
+          <span class="countdown__text">min</span>
+        </div>
+        <span class="countdown__sep">:</span>
+        <div class="countdown__unit">
+          <span class="countdown__num">{{ countdown.seconds }}</span>
+          <span class="countdown__text">sec</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ DEAL CARDS ════════════════════════════════════════ -->
+<section class="section deals-section">
+  <div class="container">
+
+    <div class="deals-grid">
+      <div class="deal-card"
+        *ngFor="let deal of deals; let i = index"
+        [class.deal-card--featured]="i === 0">
+
+        <!-- Discount Badge -->
+        <div class="deal-discount">
+          -{{ discountPercent(deal.price) }}%
+        </div>
+
+        <!-- Image -->
+        <div class="deal-image">
+          <img [src]="deal.image" [alt]="deal.name" loading="lazy"/>
+          <div class="deal-image__overlay"></div>
+
+          <!-- Save badge -->
+          <div class="deal-save" *ngIf="deal.badge">
+            {{ deal.badge }}
+          </div>
+        </div>
+
+        <!-- Glow -->
+        <div class="deal-glow"></div>
+
+        <!-- Content -->
+        <div class="deal-content">
+
+          <div class="deal-meta">
+            <span class="deal-tag">Deal of the Day</span>
+            <span class="deal-rating">★ 4.9</span>
+          </div>
+
+          <h3 class="deal-name">{{ deal.name }}</h3>
+          <p class="deal-desc">{{ deal.description }}</p>
+
+          <!-- What's included pills -->
+          <div class="deal-includes">
+            <span class="include-pill"
+              *ngFor="let item of deal.description.split('+')">
+              {{ item.trim() }}
+            </span>
+          </div>
+
+          <!-- Pricing Row -->
+          <div class="deal-pricing">
+            <div class="deal-prices">
+              <span class="deal-original">
+                Rs. {{ originalPrice(deal.price).toLocaleString() }}
+              </span>
+              <span class="deal-current">
+                Rs. {{ deal.price.toLocaleString() }}
+              </span>
+            </div>
+
+            <button class="deal-add-btn"
+              [class.added]="addedId() === deal.id"
+              (click)="addToCart(deal)">
+              <span *ngIf="addedId() !== deal.id">
+                Add to Cart
+              </span>
+              <span *ngIf="addedId() === deal.id">
+                ✓ Added!
+              </span>
+            </button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══ POPULAR SINGLES ═══════════════════════════════════ -->
+<section class="section popular-section">
+  <div class="container">
+
+    <div class="popular-header">
+      <div>
+        <p class="section-label">Also Trending</p>
+        <h2 class="popular-title">
+          Fan <span class="text-gold">Favourites</span>
+        </h2>
+        <div class="divider"></div>
+      </div>
+      <a routerLink="/menu" class="btn-outline view-all-btn">
+        View Full Menu →
+      </a>
+    </div>
+
+    <div class="popular-grid">
+      <div class="popular-card"
+        *ngFor="let item of hotItems">
+
+        <div class="popular-card__image">
+          <img [src]="item.image" [alt]="item.name" loading="lazy"/>
+          <div class="popular-card__img-overlay"></div>
+          <span class="popular-card__badge"
+            *ngIf="item.isBestSeller">
+            Best Seller
+          </span>
+        </div>
+
+        <div class="popular-card__info">
+          <h4 class="popular-card__name">{{ item.name }}</h4>
+          <div class="popular-card__bottom">
+            <span class="popular-card__price">
+              Rs. {{ item.price.toLocaleString() }}
+            </span>
+            <button class="popular-card__btn"
+              [class.added]="addedId() === item.id"
+              (click)="addToCart(item)">
+              <svg *ngIf="addedId() !== item.id"
+                width="14" height="14" viewBox="0 0 24 24"
+                fill="none" stroke="currentColor" stroke-width="3">
+                <line x1="12" y1="5" x2="12" y2="19"/>
+                <line x1="5" y1="12" x2="19" y2="12"/>
+              </svg>
+              <span *ngIf="addedId() === item.id">✓</span>
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══ BOTTOM BANNER ════════════════════════════════════ -->
+<section class="order-banner">
+  <div class="order-banner__bg"></div>
+  <div class="container order-banner__inner">
+    <div class="order-banner__text">
+      <h2>Ready to Order?</h2>
+      <p>Confirm on WhatsApp in under 2 minutes.</p>
+    </div>
+    <div class="order-banner__actions">
+      <a routerLink="/menu" class="btn-primary">Build Your Order</a>
+      <a routerLink="/about" class="btn-outline">Our Story →</a>
+    </div>
+  </div>
+</section>

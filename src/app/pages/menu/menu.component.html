@@ -1,0 +1,91 @@
+<!-- Spotlight cursor effect -->
+<div class="spotlight" [ngStyle]="spotlightStyle"></div>
+
+<!-- Toast notification -->
+<div class="cart-toast" [class.visible]="toastProduct()">
+  <span>✓</span>
+  <strong>{{ toastProduct() }}</strong> added to cart
+</div>
+
+<!-- ══ PAGE HEADER ══════════════════════════════════════ -->
+<section class="menu-header">
+  <div class="menu-header__bg">
+    <div class="menu-header__orb menu-header__orb--1"></div>
+    <div class="menu-header__orb menu-header__orb--2"></div>
+  </div>
+  <div class="container menu-header__content">
+    <p class="section-label">Our Full Menu</p>
+    <h1 class="menu-header__title">
+      Every Bite,<br>
+      <span class="text-gold">A Masterpiece</span>
+    </h1>
+    <p class="menu-header__sub">
+      Stone-fired to perfection. Fresh ingredients. Bold flavors.
+    </p>
+  </div>
+</section>
+
+<!-- ══ CATEGORY FILTER ══════════════════════════════════ -->
+<section class="filter-section">
+  <div class="container">
+    <div class="filter-bar">
+      <button
+        *ngFor="let cat of categories"
+        class="filter-btn"
+        [class.active]="activeCategory() === cat.key"
+        (click)="setCategory(cat.key)">
+        <span class="filter-icon">{{ cat.icon }}</span>
+        <span class="filter-label">{{ cat.label }}</span>
+        <span class="filter-count" *ngIf="cat.key !== 'all'">
+          {{ cat.key === activeCategory() ? filteredItems().length : '' }}
+        </span>
+        <span class="filter-active-bar"></span>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- ══ PRODUCT GRID ════════════════════════════════════ -->
+<section class="menu-grid-section section">
+  <div class="container">
+
+    <!-- Section Label -->
+   <!-- Section Label -->
+    <div class="grid-header">
+      <div class="grid-header__left">
+        <h2 class="grid-title">{{ activeCategoryLabel() }}</h2>
+        <span class="grid-count">{{ filteredItems().length }} items</span>
+      </div>
+      <div class="grid-header__line"></div>
+    </div>
+    <!-- Cards Grid -->
+    <div class="products-grid">
+      <div
+        class="card-observe"
+        *ngFor="let product of filteredItems(); trackBy: trackById">
+        <app-product-card
+          [product]="product"
+          (addedToCart)="onAddedToCart($event)">
+        </app-product-card>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══ BOTTOM CTA ═══════════════════════════════════════ -->
+<section class="menu-cta section">
+  <div class="container">
+    <div class="menu-cta__card">
+      <div class="menu-cta__glow"></div>
+      <div class="menu-cta__content">
+        <span class="section-label">Can't decide?</span>
+        <h3>Check Out Our<br><span class="text-gold">Special Deals</span></h3>
+        <p>Combo deals crafted to satisfy. Save more, eat more.</p>
+      </div>
+      <a routerLink="/deals" class="btn-primary">
+        View Deals →
+      </a>
+    </div>
+  </div>
+</section>

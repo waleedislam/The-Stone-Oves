@@ -1,0 +1,109 @@
+<div class="card-wrapper" (click)="flipCard()">
+
+  <div class="card-inner"
+    [ngStyle]="cardStyle"
+    [class.flipped]="isFlipped()">
+
+    <!-- ── FRONT ──────────────────────────────────── -->
+    <div class="card-face card-front">
+
+      <!-- Glow layer -->
+      <div class="card-glow" [ngStyle]="glowStyle"></div>
+
+      <!-- Badge -->
+      <div class="card-badge" *ngIf="product.badge">
+        {{ product.badge }}
+      </div>
+
+      <!-- Popular ribbon -->
+      <div class="card-ribbon" *ngIf="product.isPopular">
+        Popular
+      </div>
+
+      <!-- Image -->
+      <div class="card-image">
+        <img [src]="product.image" [alt]="product.name" loading="lazy"/>
+        <div class="image-overlay"></div>
+
+        <!-- Hover hint -->
+        <div class="flip-hint">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2">
+            <path d="M1 4v6h6M23 20v-6h-6"/>
+            <path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4-4.64 4.36A9 9 0 0 1 3.51 15"/>
+          </svg>
+          Tap for details
+        </div>
+      </div>
+
+      <!-- Info -->
+      <div class="card-info">
+        <div class="card-meta">
+          <span class="card-category">{{ product.category }}</span>
+          <span class="card-rating">★ 4.9</span>
+        </div>
+
+        <h3 class="card-name">{{ product.name }}</h3>
+        <p class="card-desc">{{ product.description }}</p>
+
+        <div class="card-footer">
+          <div class="card-price">
+            <span class="price-currency">Rs.</span>
+            <span class="price-value">{{ product.price.toLocaleString() }}</span>
+          </div>
+
+          <button class="add-btn"
+            [class.added]="justAdded()"
+            (click)="addToCart($event)">
+            <span class="add-btn__default">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2.5">
+                <line x1="12" y1="5" x2="12" y2="19"/>
+                <line x1="5"  y1="12" x2="19" y2="12"/>
+              </svg>
+            </span>
+            <span class="add-btn__added">✓</span>
+          </button>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ── BACK ───────────────────────────────────── -->
+    <div class="card-face card-back">
+      <div class="back-glow"></div>
+
+      <div class="back-image">
+        <img [src]="product.image" [alt]="product.name"/>
+      </div>
+
+      <div class="back-content">
+        <span class="back-label">STONE OVES SPECIAL</span>
+        <h3 class="back-name">{{ product.name }}</h3>
+
+        <div class="back-divider"></div>
+
+        <p class="back-desc">{{ product.description }}</p>
+
+        <div class="back-details">
+          <div class="detail-pill">🔥 Fresh Daily</div>
+          <div class="detail-pill">✓ Halal</div>
+          <div class="detail-pill">⚡ 20 min prep</div>
+        </div>
+
+        <div class="back-footer">
+          <div class="back-price">
+            <span>Rs. {{ product.price.toLocaleString() }}</span>
+          </div>
+          <button class="back-add-btn"
+            [class.added]="justAdded()"
+            (click)="addToCart($event)">
+            <span *ngIf="!justAdded()">Add to Cart</span>
+            <span *ngIf="justAdded()">✓ Added!</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

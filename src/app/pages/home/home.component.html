@@ -1,0 +1,152 @@
+<!-- ═══════════════════════════════════════════ HERO -->
+<section class="hero" #heroSection>
+
+  <!-- 3D Canvas Background -->
+  <canvas class="hero__canvas" #heroCanvas></canvas>
+
+  <!-- Gradient Overlays -->
+  <div class="hero__overlay"></div>
+  <div class="hero__overlay-left"></div>
+
+  <!-- Floating Badge -->
+  <div class="hero__badge animate-fadeInUp">
+    <span class="badge-dot"></span>
+    Now Open · Free Delivery Above Rs. 1500
+  </div>
+
+  <!-- Main Content -->
+  <div class="container hero__content">
+
+    <div class="hero__text">
+
+      <p class="section-label">Wood Fired · Stone Baked · Always Fresh</p>
+
+      <h1 class="hero__title">
+        Crafted in<br>
+        <span class="title-highlight">Fire.</span>
+        Served with<br>
+        <span class="title-outline">Passion.</span>
+      </h1>
+
+      <p class="hero__desc">
+        Every pizza, every burger — stone-fired to perfection.
+        Bold flavors, premium ingredients, delivered hot to your door.
+      </p>
+
+      <div class="hero__actions">
+        <a routerLink="/menu" class="btn-primary hero__cta">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2.5">
+            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+          </svg>
+          Explore Menu
+        </a>
+        <a routerLink="/deals" class="btn-outline">
+          🔥 Today's Deals
+        </a>
+      </div>
+
+      <!-- Stats Row -->
+      <div class="hero__stats">
+        <div class="stat" *ngFor="let s of stats">
+          <span class="stat__value">{{ s.value }}</span>
+          <span class="stat__label">{{ s.label }}</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Right: 3D label overlay on canvas -->
+    <div class="hero__3d-label">
+      <div class="label-card">
+        <span class="label-icon">🍕</span>
+        <div>
+          <p class="label-name">Stone-Fired Margherita</p>
+          <p class="label-price">Rs. 1,199</p>
+        </div>
+        <a routerLink="/menu" class="label-btn">Order</a>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Scroll Indicator -->
+  <div class="hero__scroll">
+    <span>Scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+
+</section>
+
+<!-- ═══════════════════════════════════════════ FEATURED STRIP -->
+<section class="strip">
+  <div class="container strip__inner">
+    <div class="strip__item">
+      <span>🔥</span> Stone-Fired Pizzas
+    </div>
+    <div class="strip__divider"></div>
+    <div class="strip__item">
+      <span>🍔</span> Smash Burgers
+    </div>
+    <div class="strip__divider"></div>
+    <div class="strip__item">
+      <span>⚡</span> 30-Min Delivery
+    </div>
+    <div class="strip__divider"></div>
+    <div class="strip__item">
+      <span>💳</span> Cash on Delivery
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════ WHY US -->
+<section class="section why-us">
+  <div class="container">
+
+    <div class="why-us__header">
+      <p class="section-label">Why Choose Us</p>
+      <h2 class="why-us__title">The Stone Oves<br><span class="text-gold">Difference</span></h2>
+      <div class="divider"></div>
+    </div>
+
+    <div class="why-us__grid">
+
+      <div class="why-card">
+        <div class="why-card__icon">🔥</div>
+        <h3>Stone-Fired Oven</h3>
+        <p>Our 450°C stone oven creates the perfect crust — crispy outside, chewy inside. No shortcuts.</p>
+      </div>
+
+      <div class="why-card why-card--featured">
+        <div class="why-card__glow"></div>
+        <div class="why-card__icon">🥩</div>
+        <h3>Premium Ingredients</h3>
+        <p>Imported San Marzano tomatoes, 100% halal meat, fresh mozzarella. Every single time.</p>
+        <span class="why-card__tag">Our Promise</span>
+      </div>
+
+      <div class="why-card">
+        <div class="why-card__icon">🚀</div>
+        <h3>Lightning Fast</h3>
+        <p>Order confirmed in 2 minutes on WhatsApp. Hot food at your door in under 30 minutes.</p>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════ CTA BANNER -->
+<section class="cta-banner">
+  <div class="cta-banner__bg"></div>
+  <div class="container cta-banner__content">
+    <div class="cta-banner__text">
+      <p class="section-label">Limited Time</p>
+      <h2>Get 20% Off Your<br><span class="text-gold">First Order</span></h2>
+      <p class="cta-banner__sub">Use code <strong>STONE20</strong> when ordering on WhatsApp</p>
+    </div>
+    <a routerLink="/menu" class="btn-gold cta-banner__btn">
+      Claim Offer →
+    </a>
+  </div>
+</section>
