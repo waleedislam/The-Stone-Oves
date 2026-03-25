@@ -1,0 +1,325 @@
+@use '../../../styles/variables' as *;
+@use '../../../styles/mixins'    as *;
+
+.footer {
+  position: relative;
+  background: $bg-secondary;
+  margin-top: auto;
+
+  // ── Glow Border ──────────────────────────────────────
+  &__glow-border {
+    height: 2px;
+    background: linear-gradient(
+      90deg,
+      transparent       0%,
+      $accent-red      20%,
+      $accent-gold     50%,
+      $accent-red      80%,
+      transparent     100%
+    );
+    position: relative;
+
+    &::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: inherit;
+      filter: blur(8px);
+      opacity: 0.6;
+    }
+  }
+
+  // ── Main ─────────────────────────────────────────────
+  &__main {
+    padding: 72px 0 56px;
+    border-bottom: 1px solid $border-color;
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: 1.8fr 1fr 1fr 1.4fr;
+    gap: 48px;
+
+    @media (max-width: 1024px) {
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+    }
+
+    @include tablet {
+      grid-template-columns: 1fr 1fr;
+      gap: 36px;
+    }
+
+    @include mobile {
+      grid-template-columns: 1fr;
+      gap: 36px;
+    }
+  }
+
+  // ── Brand Col ─────────────────────────────────────────
+  &__brand {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  &__logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+  }
+
+  .footer-logo-icon {
+    width: 46px; height: 46px;
+    border-radius: $radius-md;
+    background: linear-gradient(135deg, $accent-red, $accent-gold);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+    box-shadow: 0 4px 16px rgba(192,57,43,0.4);
+    flex-shrink: 0;
+    transition: $transition-bounce;
+
+    &:hover { transform: rotate(-5deg) scale(1.1); }
+  }
+
+  .footer-logo-text {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .footer-logo-name {
+    font-family: $font-display;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: $text-primary;
+    line-height: 1;
+  }
+
+  .footer-logo-tagline {
+    font-size: 0.6rem;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: $accent-gold;
+  }
+
+  &__brand-desc {
+    font-size: 0.85rem;
+    color: $text-muted;
+    line-height: 1.75;
+    max-width: 300px;
+  }
+
+  // ── Social ───────────────────────────────────────────
+  &__social {
+    display: flex;
+    gap: 10px;
+  }
+
+  .social-btn {
+    width: 40px; height: 40px;
+    border-radius: $radius-md;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid $border-color;
+    color: $text-muted;
+    transition: $transition-bounce;
+    text-decoration: none;
+
+    &:hover {
+      transform: translateY(-4px) scale(1.08);
+    }
+
+    &--wa:hover {
+      background: rgba(37,211,102,0.12);
+      border-color: rgba(37,211,102,0.4);
+      color: #25D366;
+      box-shadow: 0 4px 16px rgba(37,211,102,0.2);
+    }
+
+    &--ig:hover {
+      background: rgba(225,48,108,0.12);
+      border-color: rgba(225,48,108,0.4);
+      color: #e1306c;
+      box-shadow: 0 4px 16px rgba(225,48,108,0.2);
+    }
+
+    &--fb:hover {
+      background: rgba(24,119,242,0.12);
+      border-color: rgba(24,119,242,0.4);
+      color: #1877f2;
+      box-shadow: 0 4px 16px rgba(24,119,242,0.2);
+    }
+
+    &--tt:hover {
+      background: rgba(255,255,255,0.06);
+      border-color: rgba(255,255,255,0.2);
+      color: $text-primary;
+    }
+  }
+
+  // ── Col ──────────────────────────────────────────────
+  &__col {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  &__col-title {
+    font-family: $font-display;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: $text-primary;
+    position: relative;
+    padding-bottom: 12px;
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0;
+      width: 28px; height: 2px;
+      background: linear-gradient(90deg, $accent-gold, $accent-red);
+      border-radius: $radius-pill;
+    }
+  }
+
+  // ── Links ────────────────────────────────────────────
+  &__links {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  &__link {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.85rem;
+    color: $text-muted;
+    padding: 6px 0;
+    text-decoration: none;
+    transition: $transition-fast;
+    border-bottom: 1px solid transparent;
+
+    &:hover {
+      color: $text-primary;
+      padding-left: 4px;
+
+      .footer__link-arrow {
+        color: $accent-gold;
+        transform: translateX(3px);
+      }
+    }
+  }
+
+  &__link-arrow {
+    font-size: 0.75rem;
+    color: $text-muted;
+    transition: $transition-fast;
+    flex-shrink: 0;
+  }
+
+  // ── Contact ──────────────────────────────────────────
+  &__contact {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  &__contact-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 0.83rem;
+    color: $text-muted;
+    line-height: 1.5;
+
+    .contact-icon {
+      font-size: 0.95rem;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+  }
+
+  // ── Order CTA ────────────────────────────────────────
+  &__order-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 11px 20px;
+    background: rgba(37,211,102,0.1);
+    border: 1px solid rgba(37,211,102,0.25);
+    border-radius: $radius-pill;
+    color: #25D366;
+    font-size: 0.82rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: $transition-bounce;
+    margin-top: 4px;
+    width: fit-content;
+
+    &:hover {
+      background: rgba(37,211,102,0.18);
+      border-color: rgba(37,211,102,0.45);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(37,211,102,0.2);
+    }
+  }
+
+  // ── Bottom Bar ───────────────────────────────────────
+  &__bottom {
+    padding: 20px 0;
+    background: rgba(0,0,0,0.3);
+  }
+
+  &__bottom-inner {
+    @include flex-between;
+    gap: 20px;
+    flex-wrap: wrap;
+
+    @include mobile {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+  }
+
+  &__copy {
+    font-size: 0.78rem;
+    color: $text-muted;
+    line-height: 1.6;
+  }
+
+  &__badges {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+
+    @include mobile { justify-content: center; }
+  }
+
+  &__badge {
+    font-size: 0.68rem;
+    font-weight: 600;
+    padding: 4px 12px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid $border-color;
+    border-radius: $radius-pill;
+    color: $text-muted;
+    letter-spacing: 0.3px;
+    white-space: nowrap;
+    transition: $transition-fast;
+
+    &:hover {
+      border-color: rgba(245,166,35,0.3);
+      color: $accent-gold;
+    }
+  }
+}

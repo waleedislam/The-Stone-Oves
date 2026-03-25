@@ -178,6 +178,22 @@
 
 .filter-icon { font-size: 1rem; }
 
+.filter-label {
+  @include mobile { display: none; }
+}
+
+.filter-count {
+  @include mobile { display: none; }
+}
+
+.filter-btn {
+  @include mobile {
+    padding: 10px 14px;
+    min-width: 44px;
+    justify-content: center;
+  }
+}
+
 .filter-count {
   background: rgba(192,57,43,0.3);
   color: $accent-red-hot;
@@ -230,7 +246,10 @@
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 28px;
 
-  @include mobile { grid-template-columns: 1fr; }
+  @include mobile {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
 }
 
 // ── Card scroll reveal animation ───────────────────────

@@ -1,6 +1,6 @@
 import {
   Component, Input, Output, EventEmitter,
-  ElementRef, HostListener, signal, inject
+  ElementRef, HostListener, signal, inject, NgZone
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Product } from '../../../core/models/product.model';
@@ -17,8 +17,9 @@ export class ProductCardComponent {
   @Input() product!: Product;
   @Output() addedToCart = new EventEmitter<Product>();
 
-  cart    = inject(CartService);
-  el      = inject(ElementRef);
+  cart      = inject(CartService);
+  el        = inject(ElementRef);
+  zone      = inject(NgZone);
 
   isFlipped  = signal(false);
   justAdded  = signal(false);
@@ -26,21 +27,25 @@ export class ProductCardComponent {
   rotateY    = signal(0);
   glowX      = signal(50);
   glowY      = signal(50);
+  isHovered  = signal(false);
 
+  // ── Mouse tilt (desktop only) ──────────────────────
   @HostListener('mousemove', ['$event'])
   onMouseMove(e: MouseEvent) {
-    const rect = this.el.nativeElement
-      .querySelector('.card-inner')
-      .getBoundingClientRect();
-    const cx = rect.left + rect.width  / 2;
-    const cy = rect.top  + rect.height / 2;
-    const dx = (e.clientX - cx) / (rect.width  / 2);
-    const dy = (e.clientY - cy) / (rect.height / 2);
+    if (window.innerWidth < 768) return;
+    const inner = this.el.nativeElement.querySelector('.card-inner');
+    if (!inner) return;
+    const rect = inner.getBoundingClientRect();
+    const cx   = rect.left + rect.width  / 2;
+    const cy   = rect.top  + rect.height / 2;
+    const dx   = (e.clientX - cx) / (rect.width  / 2);
+    const dy   = (e.clientY - cy) / (rect.height / 2);
 
-    this.rotateY.set( dx * 12);
-    this.rotateX.set(-dy * 12);
+    this.rotateY.set( dx * 10);
+    this.rotateX.set(-dy * 10);
     this.glowX.set(((e.clientX - rect.left) / rect.width)  * 100);
     this.glowY.set(((e.clientY - rect.top)  / rect.height) * 100);
+    this.isHovered.set(true);
   }
 
   @HostListener('mouseleave')
@@ -49,26 +54,44 @@ export class ProductCardComponent {
     this.rotateY.set(0);
     this.glowX.set(50);
     this.glowY.set(50);
-    this.isFlipped.set(false);
+    this.isHovered.set(false);
   }
 
-  flipCard()   { this.isFlipped.update(v => !v); }
+  // ── Flip toggle ────────────────────────────────────
+  flipCard(e: Event) {
+    e.stopPropagation();
+    this.isFlipped.update(v => !v);
+  }
 
+  // ── Add to cart — works from BOTH faces ────────────
   addToCart(e: Event) {
     e.stopPropagation();
+    e.preventDefault();
+
+    if (this.justAdded()) return; // debounce
+
     this.cart.addItem(this.product);
     this.addedToCart.emit(this.product);
     this.justAdded.set(true);
-    setTimeout(() => this.justAdded.set(false), 1800);
+
+    // If triggered from back face → flip back after 700ms
+    if (this.isFlipped()) {
+      setTimeout(() => this.isFlipped.set(false), 700);
+    }
+
+    // Reset justAdded after animation
+    setTimeout(() => this.justAdded.set(false), 2000);
   }
 
-  get cardStyle() {
+  // ── Styles ─────────────────────────────────────────
+  get tiltStyle() {
+    const settling = this.rotateX() === 0 && this.rotateY() === 0;
     return {
       transform: `perspective(1000px)
         rotateX(${this.rotateX()}deg)
         rotateY(${this.rotateY()}deg)`,
-      transition: (this.rotateX() === 0 && this.rotateY() === 0)
-        ? 'transform 0.6s cubic-bezier(0.23,1,0.32,1)'
+      transition: settling
+        ? 'transform 0.55s cubic-bezier(0.23,1,0.32,1)'
         : 'transform 0.08s linear'
     };
   }

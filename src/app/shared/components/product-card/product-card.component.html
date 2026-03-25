@@ -1,109 +1,133 @@
-<div class="card-wrapper" (click)="flipCard()">
+<div class="card-wrapper">
 
-  <div class="card-inner"
-    [ngStyle]="cardStyle"
-    [class.flipped]="isFlipped()">
+  <!-- Tilt container (desktop parallax) -->
+  <div class="card-tilt" [ngStyle]="tiltStyle">
 
-    <!-- ── FRONT ──────────────────────────────────── -->
-    <div class="card-face card-front">
+    <!-- Flip container -->
+    <div class="card-inner" [class.flipped]="isFlipped()">
 
-      <!-- Glow layer -->
-      <div class="card-glow" [ngStyle]="glowStyle"></div>
+      <!-- ════════════════════════ FRONT FACE -->
+      <div class="card-face card-front">
 
-      <!-- Badge -->
-      <div class="card-badge" *ngIf="product.badge">
-        {{ product.badge }}
+        <!-- Glow overlay on hover -->
+        <div class="card-glow" [ngStyle]="glowStyle"></div>
+
+        <!-- Badges -->
+        <div class="card-badge" *ngIf="product.badge">
+          {{ product.badge }}
+        </div>
+        <div class="card-ribbon" *ngIf="product.isPopular && !product.badge">
+          Popular
+        </div>
+
+        <!-- Image -->
+        <div class="card-image" (click)="flipCard($event)">
+          <img [src]="product.image" [alt]="product.name" loading="lazy"/>
+          <div class="image-overlay"></div>
+          <div class="flip-hint">
+            <svg width="13" height="13" viewBox="0 0 24 24"
+              fill="none" stroke="currentColor" stroke-width="2.5">
+              <path d="M1 4v6h6M23 20v-6h-6"/>
+              <path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10
+                       m22 4-4.64 4.36A9 9 0 0 1 3.51 15"/>
+            </svg>
+            <span>Tap for details</span>
+          </div>
+        </div>
+
+        <!-- Info -->
+        <div class="card-info">
+
+          <div class="card-meta">
+            <span class="card-category">{{ product.category }}</span>
+            <span class="card-rating">★ 4.9</span>
+          </div>
+
+          <h3 class="card-name" (click)="flipCard($event)">
+            {{ product.name }}
+          </h3>
+
+          <p class="card-desc">{{ product.description }}</p>
+
+          <div class="card-footer">
+            <div class="card-price">
+              <span class="price-currency">Rs.</span>
+              <span class="price-value">
+                {{ product.price.toLocaleString() }}
+              </span>
+            </div>
+
+            <!-- Front Add Button -->
+            <button
+              class="add-btn"
+              [class.added]="justAdded()"
+              (click)="addToCart($event)"
+              [attr.aria-label]="'Add ' + product.name + ' to cart'">
+              <span class="add-btn__icon add-btn__icon--plus">
+                <svg width="15" height="15" viewBox="0 0 24 24"
+                  fill="none" stroke="currentColor" stroke-width="3">
+                  <line x1="12" y1="5" x2="12" y2="19"/>
+                  <line x1="5"  y1="12" x2="19" y2="12"/>
+                </svg>
+              </span>
+              <span class="add-btn__icon add-btn__icon--check">✓</span>
+            </button>
+          </div>
+
+        </div>
       </div>
+      <!-- ════════════ END FRONT ════════════ -->
 
-      <!-- Popular ribbon -->
-      <div class="card-ribbon" *ngIf="product.isPopular">
-        Popular
-      </div>
 
-      <!-- Image -->
-      <div class="card-image">
-        <img [src]="product.image" [alt]="product.name" loading="lazy"/>
-        <div class="image-overlay"></div>
+      <!-- ════════════════════════ BACK FACE -->
+      <div class="card-face card-back">
 
-        <!-- Hover hint -->
-        <div class="flip-hint">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
-            stroke="currentColor" stroke-width="2">
-            <path d="M1 4v6h6M23 20v-6h-6"/>
-            <path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4-4.64 4.36A9 9 0 0 1 3.51 15"/>
+        <div class="back-glow"></div>
+
+        <!-- Blurred bg image -->
+        <div class="back-image">
+          <img [src]="product.image" [alt]="product.name"/>
+        </div>
+
+        <!-- Close / flip back btn -->
+        <button class="back-close" (click)="flipCard($event)"
+          aria-label="Close">
+          <svg width="14" height="14" viewBox="0 0 24 24"
+            fill="none" stroke="currentColor" stroke-width="2.5">
+            <line x1="18" y1="6"  x2="6"  y2="18"/>
+            <line x1="6"  y1="6"  x2="18" y2="18"/>
           </svg>
-          Tap for details
-        </div>
-      </div>
+        </button>
 
-      <!-- Info -->
-      <div class="card-info">
-        <div class="card-meta">
-          <span class="card-category">{{ product.category }}</span>
-          <span class="card-rating">★ 4.9</span>
-        </div>
+        <div class="back-content">
 
-        <h3 class="card-name">{{ product.name }}</h3>
-        <p class="card-desc">{{ product.description }}</p>
+          <span class="back-label">STONE OVES SPECIAL</span>
 
-        <div class="card-footer">
-          <div class="card-price">
-            <span class="price-currency">Rs.</span>
-            <span class="price-value">{{ product.price.toLocaleString() }}</span>
+          <h3 class="back-name">{{ product.name }}</h3>
+
+          <div class="back-divider"></div>
+
+          <p class="back-desc">{{ product.description }}</p>
+
+          <div class="back-details">
+            <div class="detail-pill">🔥 Fresh Daily</div>
+            <div class="detail-pill">✓ Halal</div>
+            <div class="detail-pill">⚡ 20 min</div>
           </div>
 
-          <button class="add-btn"
-            [class.added]="justAdded()"
-            (click)="addToCart($event)">
-            <span class="add-btn__default">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
-                stroke="currentColor" stroke-width="2.5">
-                <line x1="12" y1="5" x2="12" y2="19"/>
-                <line x1="5"  y1="12" x2="19" y2="12"/>
-              </svg>
-            </span>
-            <span class="add-btn__added">✓</span>
-          </button>
-        </div>
-      </div>
+          <div class="back-footer">
 
-    </div>
+            <div class="back-price">
+              Rs. {{ product.price.toLocaleString() }}
+            </div>
 
-    <!-- ── BACK ───────────────────────────────────── -->
-    <div class="card-face card-back">
-      <div class="back-glow"></div>
-
-      <div class="back-image">
-        <img [src]="product.image" [alt]="product.name"/>
-      </div>
-
-      <div class="back-content">
-        <span class="back-label">STONE OVES SPECIAL</span>
-        <h3 class="back-name">{{ product.name }}</h3>
-
-        <div class="back-divider"></div>
-
-        <p class="back-desc">{{ product.description }}</p>
-
-        <div class="back-details">
-          <div class="detail-pill">🔥 Fresh Daily</div>
-          <div class="detail-pill">✓ Halal</div>
-          <div class="detail-pill">⚡ 20 min prep</div>
-        </div>
-
-        <div class="back-footer">
-          <div class="back-price">
-            <span>Rs. {{ product.price.toLocaleString() }}</span>
           </div>
-          <button class="back-add-btn"
-            [class.added]="justAdded()"
-            (click)="addToCart($event)">
-            <span *ngIf="!justAdded()">Add to Cart</span>
-            <span *ngIf="justAdded()">✓ Added!</span>
-          </button>
+
         </div>
       </div>
-    </div>
+      <!-- ════════════ END BACK ════════════ -->
 
+    </div>
   </div>
+
 </div>
