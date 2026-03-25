@@ -4,7 +4,7 @@
 // ══ Hero ════════════════════════════════════════════════
 .about-hero {
   position: relative;
-  min-height: 70vh;
+  min-height: 60vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -13,14 +13,14 @@
   &__bg {
     position: absolute;
     inset: 0;
+  }
 
-    img {
-      position: absolute;
-      inset: 0;
-      width: 100%; height: 100%;
-      object-fit: cover;
-      filter: saturate(0.7);
-    }
+  &__img {
+    position: absolute;
+    inset: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    filter: saturate(0.6) brightness(0.8);
   }
 
   &__overlay {
@@ -28,43 +28,47 @@
     inset: 0;
     background: linear-gradient(
       135deg,
-      rgba(10,10,10,0.92) 0%,
-      rgba(10,10,10,0.7)  50%,
-      rgba(10,10,10,0.85) 100%
+      rgba(10,10,10,0.95) 0%,
+      rgba(10,10,10,0.75) 50%,
+      rgba(10,10,10,0.88) 100%
     );
   }
 
   &__content {
     position: relative;
     z-index: 1;
-    padding: 120px 0 80px;
+    padding: 110px 0 60px;
     display: flex;
     flex-direction: column;
-    gap: 18px;
+    gap: 16px;
     animation: fadeInUp 0.9s ease both;
+
+    @include mobile { padding: 90px 0 48px; }
   }
 
   &__title {
     font-family: $font-display;
-    font-size: clamp(2.8rem, 5.5vw, 4.5rem);
+    font-size: clamp(2.2rem, 5vw, 4rem);
     font-weight: 900;
     color: $text-primary;
-    line-height: 1.05;
+    line-height: 1.08;
   }
 
   &__sub {
-    font-size: 1rem;
+    font-size: 0.95rem;
     color: $text-secondary;
-    max-width: 480px;
-    line-height: 1.7;
+    max-width: 440px;
+    line-height: 1.75;
+
+    @include mobile { font-size: 0.88rem; }
   }
 }
 
-// Stats Bar
+// ── Stats Bar ────────────────────────────────────────────
 .stats-bar {
   position: relative;
   z-index: 2;
-  background: rgba(17,17,17,0.95);
+  background: rgba(17,17,17,0.97);
   border-top: 1px solid $border-color;
   border-bottom: 1px solid $border-color;
   backdrop-filter: blur(10px);
@@ -72,9 +76,10 @@
   &__inner {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    padding: 24px 0;
+    padding: 20px 0;
 
-    @include tablet { grid-template-columns: repeat(2, 1fr); gap: 1px; }
+    @include tablet  { grid-template-columns: repeat(2, 1fr); }
+    @include mobile  { grid-template-columns: repeat(2, 1fr); }
   }
 }
 
@@ -83,24 +88,32 @@
   flex-direction: column;
   align-items: center;
   gap: 4px;
-  padding: 8px 0;
+  padding: 10px 8px;
   border-right: 1px solid $border-color;
+  text-align: center;
 
-  &:last-child { border-right: none; }
+  &:nth-child(2) { @include tablet  { border-right: none; } }
+  &:nth-child(2) { @include mobile  { border-right: none; } }
+  &:last-child   { border-right: none; }
 
   &__value {
     font-family: $font-display;
-    font-size: 1.8rem;
+    font-size: 1.6rem;
     font-weight: 700;
     color: $accent-gold;
+    line-height: 1;
+
+    @include mobile { font-size: 1.3rem; }
   }
 
   &__label {
-    font-size: 0.7rem;
+    font-size: 0.62rem;
     font-weight: 600;
     letter-spacing: 1.5px;
     text-transform: uppercase;
     color: $text-muted;
+
+    @include mobile { font-size: 0.56rem; letter-spacing: 1px; }
   }
 }
 
@@ -110,20 +123,22 @@
 .story-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 80px;
+  gap: 60px;
   align-items: center;
 
   @include tablet {
     grid-template-columns: 1fr;
-    gap: 48px;
+    gap: 40px;
   }
 }
 
+// Story images stacked layout (no absolute positioning on mobile)
 .story-images {
   position: relative;
-  height: 480px;
+  height: 440px;
 
-  @include tablet { height: 320px; }
+  @include tablet { height: 260px; }
+  @include mobile { height: 220px; }
 }
 
 .story-img {
@@ -136,19 +151,20 @@
     width: 100%; height: 100%;
     object-fit: cover;
     transition: transform 0.6s ease;
+    display: block;
   }
 
   &:hover img { transform: scale(1.05); }
 
   &--main {
-    width: 72%; height: 75%;
+    width: 70%; height: 73%;
     top: 0; left: 0;
     box-shadow: $shadow-lift;
     z-index: 2;
   }
 
   &--secondary {
-    width: 52%; height: 50%;
+    width: 50%; height: 48%;
     bottom: 0; right: 0;
     z-index: 3;
     border-color: rgba(245,166,35,0.2);
@@ -157,9 +173,9 @@
 
   &__frame {
     position: absolute;
-    inset: -8px;
-    border: 2px solid rgba(192,57,43,0.2);
-    border-radius: calc($radius-lg + 8px);
+    inset: -6px;
+    border: 2px solid rgba(192,57,43,0.15);
+    border-radius: calc($radius-lg + 6px);
     pointer-events: none;
     z-index: -1;
   }
@@ -167,92 +183,96 @@
 
 .story-badge {
   position: absolute;
-  top: 30%;
-  right: 26%;
+  top: 28%; right: 28%;
   z-index: 4;
-  width: 72px; height: 72px;
+  width: 64px; height: 64px;
   border-radius: 50%;
   background: linear-gradient(135deg, $accent-red, $accent-gold);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 8px 24px rgba(192,57,43,0.5);
+  box-shadow: 0 6px 20px rgba(192,57,43,0.5);
+
+  @include mobile { width: 48px; height: 48px; top: 26%; right: 25%; }
 
   &__year {
     font-family: $font-display;
-    font-size: 1rem;
+    font-size: 0.9rem;
     font-weight: 900;
     color: $white;
     line-height: 1;
+
+    @include mobile { font-size: 0.75rem; }
   }
 
   &__text {
-    font-size: 0.55rem;
+    font-size: 0.5rem;
     font-weight: 600;
-    letter-spacing: 2px;
+    letter-spacing: 1.5px;
     color: rgba(255,255,255,0.8);
     text-transform: uppercase;
   }
 }
 
+// Story text
 .story-text {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 14px;
 }
 
 .story-title {
   font-family: $font-display;
-  font-size: clamp(2rem, 3.5vw, 2.8rem);
+  font-size: clamp(1.8rem, 3vw, 2.6rem);
   font-weight: 900;
   color: $text-primary;
   line-height: 1.15;
-  margin-top: 8px;
+  margin-top: 6px;
 }
 
 .story-body {
-  font-size: 0.92rem;
+  font-size: 0.9rem;
   color: $text-secondary;
   line-height: 1.8;
+
+  @include mobile { font-size: 0.84rem; }
 }
 
 .story-quote {
-  margin-top: 8px;
-  padding: 20px 24px;
+  margin-top: 4px;
+  padding: 16px 20px 16px 40px;
   background: rgba(245,166,35,0.05);
   border-left: 3px solid $accent-gold;
   border-radius: 0 $radius-md $radius-md 0;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
   position: relative;
 
   .quote-mark {
     font-family: $font-display;
-    font-size: 3rem;
+    font-size: 2.5rem;
     color: $accent-gold;
-    opacity: 0.4;
+    opacity: 0.35;
     line-height: 0.5;
     position: absolute;
-    top: 16px; left: 16px;
+    top: 14px; left: 12px;
   }
 
   p {
     font-family: $font-display;
-    font-size: 1rem;
+    font-size: 0.95rem;
     font-style: italic;
     color: $text-primary;
-    padding-left: 24px;
-    padding-top: 8px;
+    line-height: 1.6;
+    margin: 0;
   }
 
   .quote-author {
-    font-size: 0.75rem;
+    display: block;
+    font-size: 0.72rem;
     font-weight: 600;
     color: $accent-gold;
-    padding-left: 24px;
     letter-spacing: 0.5px;
+    margin-top: 8px;
   }
 }
 
@@ -265,52 +285,61 @@
 
 .values-header {
   text-align: center;
-  margin-bottom: 56px;
+  margin-bottom: 48px;
 }
 
 .values-title {
   font-family: $font-display;
-  font-size: clamp(2rem, 3.5vw, 2.8rem);
+  font-size: clamp(1.8rem, 3vw, 2.6rem);
   font-weight: 900;
   color: $text-primary;
   margin-top: 10px;
 }
 
+// ── 2 per row on all sizes ───────────────────────────────
 .values-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: 20px;
 
-  @include tablet { grid-template-columns: repeat(2, 1fr); }
-  @include mobile { grid-template-columns: 1fr; }
+  @include mobile { gap: 14px; }
 }
 
 .value-card {
   @include glow-card;
-  padding: 36px 24px;
+  padding: 32px 24px;
   text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 14px;
+  gap: 12px;
   animation: fadeInUp 0.6s ease both;
 
+  @include mobile { padding: 24px 16px; gap: 10px; }
+
   &__icon {
-    font-size: 2.5rem;
+    font-size: 2.2rem;
     animation: float 4s ease-in-out infinite;
+
+    @include mobile { font-size: 1.8rem; }
   }
 
   &__title {
     font-family: $font-display;
-    font-size: 1.05rem;
+    font-size: 1rem;
     font-weight: 700;
     color: $text-primary;
+    line-height: 1.2;
+
+    @include mobile { font-size: 0.9rem; }
   }
 
   &__desc {
-    font-size: 0.82rem;
+    font-size: 0.8rem;
     color: $text-secondary;
     line-height: 1.7;
+
+    @include mobile { font-size: 0.75rem; line-height: 1.6; }
   }
 }
 
@@ -319,23 +348,32 @@
 
 .team-header {
   text-align: center;
-  margin-bottom: 56px;
+  margin-bottom: 48px;
 }
 
 .team-title {
   font-family: $font-display;
-  font-size: clamp(2rem, 3.5vw, 2.8rem);
+  font-size: clamp(1.8rem, 3vw, 2.6rem);
   font-weight: 900;
   color: $text-primary;
   margin-top: 10px;
 }
 
+// ── 2 per row on mobile ──────────────────────────────────
 .team-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 28px;
+  gap: 24px;
 
-  @include tablet { grid-template-columns: 1fr; max-width: 360px; margin: 0 auto; }
+  @include tablet {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+
+  @include mobile {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
 }
 
 .team-card {
@@ -347,7 +385,7 @@
 
   &:hover {
     border-color: rgba(245,166,35,0.3);
-    transform: translateY(-6px);
+    transform: translateY(-5px);
     box-shadow: $shadow-card, $shadow-gold;
 
     .team-card__image img { transform: scale(1.06); }
@@ -356,14 +394,18 @@
 
   &__image {
     position: relative;
-    height: 280px;
+    height: 200px;
     overflow: hidden;
+
+    @include tablet { height: 160px; }
+    @include mobile { height: 130px; }
 
     img {
       width: 100%; height: 100%;
       object-fit: cover;
+      object-position: top;
       transition: transform 0.6s ease;
-      filter: grayscale(20%);
+      filter: grayscale(15%);
       display: block;
     }
   }
@@ -373,48 +415,62 @@
     inset: 0;
     background: linear-gradient(
       to bottom,
-      transparent 40%,
-      rgba(0,0,0,0.85) 100%
+      transparent 35%,
+      rgba(0,0,0,0.8) 100%
     );
   }
 
   &__quote {
     position: absolute;
     bottom: 0; left: 0; right: 0;
-    padding: 20px 18px;
+    padding: 14px 14px;
     opacity: 0;
-    transform: translateY(8px);
+    transform: translateY(6px);
     transition: all 0.4s ease;
 
     span {
       font-family: $font-display;
-      font-size: 0.88rem;
+      font-size: 0.78rem;
       font-style: italic;
       color: rgba(255,255,255,0.9);
-      line-height: 1.5;
+      line-height: 1.4;
+
+      @include mobile { font-size: 0.68rem; }
     }
   }
 
   &__info {
-    padding: 18px 20px;
+    padding: 14px 14px;
     display: flex;
     flex-direction: column;
-    gap: 5px;
+    gap: 4px;
+
+    @include mobile { padding: 10px 12px; }
   }
 
   &__name {
     font-family: $font-display;
-    font-size: 1.1rem;
+    font-size: 0.95rem;
     font-weight: 700;
     color: $text-primary;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    @include mobile { font-size: 0.82rem; }
   }
 
   &__role {
-    font-size: 0.75rem;
+    font-size: 0.65rem;
     font-weight: 600;
     letter-spacing: 1px;
     text-transform: uppercase;
     color: $accent-gold;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    @include mobile { font-size: 0.58rem; }
   }
 }
 
@@ -424,24 +480,29 @@
 .location-card {
   position: relative;
   @include glass-card;
-  padding: 60px;
+  padding: 52px;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 60px;
+  gap: 48px;
   align-items: center;
   border-color: rgba(245,166,35,0.1);
   overflow: hidden;
 
   @include tablet {
     grid-template-columns: 1fr;
-    padding: 36px 24px;
-    gap: 36px;
+    padding: 32px 24px;
+    gap: 32px;
+  }
+
+  @include mobile {
+    padding: 24px 16px;
+    gap: 28px;
   }
 
   &__glow {
     position: absolute;
     bottom: -80px; right: -80px;
-    width: 360px; height: 360px;
+    width: 320px; height: 320px;
     background: radial-gradient(circle,
       rgba(192,57,43,0.1) 0%, transparent 70%);
     pointer-events: none;
@@ -451,37 +512,54 @@
 .location-info {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 14px;
   position: relative;
   z-index: 1;
 }
 
 .location-title {
   font-family: $font-display;
-  font-size: clamp(1.8rem, 3vw, 2.4rem);
+  font-size: clamp(1.6rem, 2.5vw, 2.2rem);
   font-weight: 900;
   color: $text-primary;
   line-height: 1.15;
-  margin-top: 8px;
+  margin-top: 6px;
 }
 
+// ── 2-column detail grid ─────────────────────────────────
 .location-details {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
   gap: 14px;
   margin: 4px 0;
+
+  @include mobile { grid-template-columns: 1fr; gap: 12px; }
 }
 
 .location-detail {
   display: flex;
-  gap: 14px;
+  gap: 10px;
   align-items: flex-start;
+  padding: 12px 14px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid $border-color;
+  border-radius: $radius-md;
+  transition: $transition-fast;
 
-  .detail-icon { font-size: 1.2rem; flex-shrink: 0; margin-top: 2px; }
+  &:hover {
+    border-color: rgba(245,166,35,0.2);
+    background: rgba(245,166,35,0.03);
+  }
+
+  .detail-icon {
+    font-size: 1.1rem;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
 
   strong {
     display: block;
-    font-size: 0.75rem;
+    font-size: 0.68rem;
     font-weight: 700;
     letter-spacing: 1px;
     text-transform: uppercase;
@@ -489,17 +567,34 @@
     margin-bottom: 3px;
   }
 
-  p { font-size: 0.88rem; color: $text-secondary; line-height: 1.5; }
+  p {
+    font-size: 0.82rem;
+    color: $text-secondary;
+    line-height: 1.5;
+    margin: 0;
+    word-break: break-word;
+  }
 }
 
 .location-actions {
   display: flex;
-  gap: 14px;
-  margin-top: 8px;
+  gap: 12px;
+  margin-top: 4px;
   flex-wrap: wrap;
+
+  .btn-primary,
+  .btn-outline {
+    font-size: 0.85rem;
+    padding: 11px 22px;
+    flex: 1;
+    text-align: center;
+    justify-content: center;
+
+    @include mobile { flex: unset; width: 100%; }
+  }
 }
 
-// Map Visual
+// ── Map Visual ───────────────────────────────────────────
 .location-visual {
   position: relative;
   z-index: 1;
@@ -507,8 +602,8 @@
 
 .map-placeholder {
   width: 100%;
-  aspect-ratio: 1;
-  max-width: 360px;
+  aspect-ratio: 1 / 1;
+  max-width: 340px;
   margin: 0 auto;
   background: $bg-card;
   border: 1px solid $border-color;
@@ -521,6 +616,8 @@
   position: relative;
   overflow: hidden;
 
+  @include mobile { max-width: 240px; }
+
   &::before {
     content: '';
     position: absolute;
@@ -528,30 +625,56 @@
     background:
       linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
       linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
-    background-size: 30px 30px;
+    background-size: 28px 28px;
   }
 
-  .map-pin   { font-size: 3rem; animation: float 3s ease-in-out infinite; }
+  // Red glow center
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at center,
+      rgba(192,57,43,0.08) 0%, transparent 65%);
+  }
+
+  .map-pin {
+    font-size: 2.8rem;
+    animation: float 3s ease-in-out infinite;
+    position: relative;
+    z-index: 1;
+
+    @include mobile { font-size: 2rem; }
+  }
 
   .map-label {
     font-family: $font-display;
-    font-size: 1.1rem;
+    font-size: 1rem;
     font-weight: 700;
     color: $text-primary;
+    position: relative;
+    z-index: 1;
+
+    @include mobile { font-size: 0.88rem; }
   }
 
-  .map-sub   { font-size: 0.8rem; color: $text-muted; }
+  .map-sub {
+    font-size: 0.75rem;
+    color: $text-muted;
+    position: relative;
+    z-index: 1;
+  }
 }
 
 .map-pulse {
   position: absolute;
-  width: 80px; height: 80px;
+  width: 70px; height: 70px;
   border-radius: 50%;
   border: 2px solid rgba(192,57,43,0.3);
   animation: pulse-ring 3s ease-out infinite;
+  z-index: 1;
 }
 
 @keyframes pulse-ring {
   0%   { transform: scale(0.8); opacity: 1; }
-  100% { transform: scale(2.5); opacity: 0; }
+  100% { transform: scale(2.8); opacity: 0; }
 }

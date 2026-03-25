@@ -19,7 +19,6 @@
     </p>
   </div>
 
-  <!-- Stats Bar -->
   <div class="stats-bar">
     <div class="container stats-bar__inner">
       <div class="stat-item" *ngFor="let stat of stats">
@@ -36,12 +35,14 @@
 
     <div class="story-images">
       <div class="story-img story-img--main">
-        <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?w=600&q=80"
+        <img
+          src="https://images.unsplash.com/photo-1513104890138-7c749659a591?w=600&q=80"
           alt="Our Kitchen"/>
         <div class="story-img__frame"></div>
       </div>
       <div class="story-img story-img--secondary">
-        <img src="https://images.unsplash.com/photo-1571407970349-bc81e7e96d47?w=400&q=80"
+        <img
+          src="https://images.unsplash.com/photo-1571407970349-bc81e7e96d47?w=400&q=80"
           alt="Our Pizzas"/>
       </div>
       <div class="story-badge">
@@ -93,8 +94,9 @@
     </div>
 
     <div class="values-grid">
-      <div class="value-card" *ngFor="let v of values; let i = index"
-        [style.animation-delay]="i * 0.1 + 's'">
+      <div class="value-card"
+        *ngFor="let v of values; let i = index"
+        [style.animation-delay]="(i * 0.1) + 's'">
         <div class="value-card__icon">{{ v.icon }}</div>
         <h3 class="value-card__title">{{ v.title }}</h3>
         <p class="value-card__desc">{{ v.desc }}</p>
@@ -152,20 +154,23 @@
         <div class="divider"></div>
 
         <div class="location-details">
+
           <div class="location-detail">
             <span class="detail-icon">📍</span>
             <div>
               <strong>Address</strong>
-              <p>Main Boulevard, Faisalabad, Punjab, Pakistan</p>
+              <p>Main Boulevard, Faisalabad, Punjab</p>
             </div>
           </div>
+
           <div class="location-detail">
             <span class="detail-icon">🕐</span>
             <div>
               <strong>Hours</strong>
-              <p>Mon–Sun: 12:00 PM – 1:00 AM</p>
+              <p>Mon–Sun: 12 PM – 1 AM</p>
             </div>
           </div>
+
           <div class="location-detail">
             <span class="detail-icon">📞</span>
             <div>
@@ -173,13 +178,15 @@
               <p>+92 300 123 4567</p>
             </div>
           </div>
+
           <div class="location-detail">
             <span class="detail-icon">🛵</span>
             <div>
               <strong>Delivery</strong>
-              <p>Free above Rs. 1500 · 30 min avg</p>
+              <p>Free above Rs. 1500</p>
             </div>
           </div>
+
         </div>
 
         <div class="location-actions">
@@ -195,7 +202,7 @@
         <div class="map-placeholder">
           <span class="map-pin">📍</span>
           <span class="map-label">The Stone Oves</span>
-          <span class="map-sub">Faisalabad</span>
+          <span class="map-sub">Faisalabad, Punjab</span>
           <div class="map-pulse"></div>
         </div>
       </div>
